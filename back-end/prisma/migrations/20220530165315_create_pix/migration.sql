@@ -1,0 +1,12 @@
+-- CreateTable
+CREATE TABLE "pix" (
+    "id" SERIAL NOT NULL,
+    "status" TEXT NOT NULL,
+    "value" DOUBLE PRECISION NOT NULL,
+    "requestingUser" INTEGER NOT NULL DEFAULT 0,
+    "payingUser" INTEGER NOT NULL DEFAULT 0,
+    "createAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updateAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "pix_pkey" PRIMARY KEY ("id")
+);
