@@ -1,10 +1,10 @@
 # Projeto Bank
 
-## Este é um projeto FullStack
+## Este é um projeto FullStack e está em desenvolvimento
 
-### Para colocar em prática meu aprendizado, neste projeto estou criando
-### um banco financeiro. Nele é possível criar uma conta e fazer transações
-### que imitam o pix.
+__Para colocar em prática meu aprendizado, neste projeto estou criando__
+__um banco financeiro. Nele é possível criar uma conta e fazer transações__
+__que imitam o pix.__
 
 - [x] - Iniciar back-end
 - [x] - Instalar depedências
