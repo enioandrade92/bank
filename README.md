@@ -4,7 +4,7 @@
 
 __Para colocar em prática meu aprendizado, neste projeto estou criando__
 __um banco financeiro. Nele é possível criar uma conta e fazer transações__
-__que imitam o pix.__
+__que assemelha o pix.__
 
 - [x] - Iniciar back-end
 - [x] - Instalar depedências
@@ -24,4 +24,5 @@ __que imitam o pix.__
 - [x] - Implementar 'userController' com os metódos [singIn, singUp]
 - [x] - Implementar 'pixService' com os metódos [request, pay ,transactions]
 - [x] - Implementar 'userController' com os metódos [request, pay ,transactions]
+- [x] - Implementar Joi validate
 

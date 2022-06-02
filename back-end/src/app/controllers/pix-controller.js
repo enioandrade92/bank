@@ -1,7 +1,9 @@
 const pixService = require('../services/pix-service');
+const dataValidator = require('../validators/data-validator');
 
 module.exports = {
   async request(req, res) {
+    await dataValidator.pixValue(req.body);
     const requestkey = await pixService.request(req.user, req.body.value);
     return res.status(201).json({ requestkey });
   },
