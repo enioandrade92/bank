@@ -1,11 +1,11 @@
 const Joi = require('joi');
 
-const singInSchema = Joi.object({
+const signInSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
 });
 
-const singUpSchema = Joi.object({
+const signUpSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
   firtName: Joi.string().min(3).required(),
@@ -17,9 +17,9 @@ const pixValueSchema = Joi.object({
 });
 
 module.exports = {
-  async singIn(body) {
+  async signIn(body) {
     try {
-      const result = await singInSchema.validateAsync(body);
+      const result = await signInSchema.validateAsync(body);
       return result;
     } catch (error) {
       const err = new Error(error.message);
@@ -28,9 +28,9 @@ module.exports = {
     }
   },
 
-  async singUp(body) {
+  async signUp(body) {
     try {
-      const result = await singUpSchema.validateAsync(body);
+      const result = await signUpSchema.validateAsync(body);
       return result;
     } catch (error) {
       const err = new Error(error.message);

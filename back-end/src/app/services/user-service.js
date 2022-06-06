@@ -4,7 +4,7 @@ const userModel = require('../models/user-model');
 const errorUtil = require('../utils/error-util');
 
 module.exports = {
-  async singIn(login) {
+  async signIn(login) {
     const user = await userModel.findByEmail(login.email);
     if (!user) errorUtil('Not found user', 'unauthorized');
 
@@ -21,7 +21,7 @@ module.exports = {
     return { ...user, token };
   },
 
-  async singUp(user) {
+  async signUp(user) {
     const foundUser = await userModel.findByEmail(user.email);
     if (foundUser) errorUtil('User exists', 'bad_request');
 
