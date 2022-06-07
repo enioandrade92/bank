@@ -4,7 +4,9 @@
 
 __Para colocar em prática meu aprendizado, neste projeto estou criando__
 __um banco financeiro. Nele é possível criar uma conta e fazer transações__
-__que assemelha o pix.__
+__que assemelham ao pix.__
+
+## Back-end
 
 - [x] - Iniciar back-end
 - [x] - Instalar depedências
@@ -25,4 +27,28 @@ __que assemelha o pix.__
 - [x] - Implementar 'pixService' com os metódos [request, pay ,transactions]
 - [x] - Implementar 'userController' com os metódos [request, pay ,transactions]
 - [x] - Implementar Joi validate
+
+
+## Front-end
+
+- [x] - Iniciar front-end
+- [x] - Instalar depedências
+- [x] - Configurar eslint com o padrão da airbnb
+- [x] - Implementar rotas
+- [x] - Implementar style-components
+- [x] - Adicionar imagens
+- [x] - Implementar componente Card
+- [x] - Implementar componente Button
+- [x] - Implementar componente Header
+- [x] - Implementar componente UserCircle
+- [x] - Implementar componente Input
+- [x] - Implementar página SignIn
+- [x] - Implementar página SignUp
+- [x] - Implementar página Dashboard
+- [x] - Implementar componente statement
+- [x] - Implementar conexão axios
+- [x] - Implementar context Auth
+- [] - Integrar com o back-end
+- [] - Dockerizar toda aplicação
+
 
