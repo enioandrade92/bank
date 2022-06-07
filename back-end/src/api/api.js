@@ -11,8 +11,8 @@ const api = express();
 api.use(express.json());
 api.use(cors());
 
-api.use('/singin', signinRouter);
-api.use('/singup', signupRouter);
+api.use('/signin', signinRouter);
+api.use('/signup', signupRouter);
 api.use('/pix', pixRouter);
 
 api.use(errorHandler);
