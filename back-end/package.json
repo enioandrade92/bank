@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prisma": "npx prisma migrate reset && node prisma/seed.js",
+    "prisma": "npx prisma migrate reset -f && node prisma/seed.js",
     "dockerup": "cd docker && docker-compose down -v && docker-compose up",
     "dockerdown": "cd docker && docker-compose down -v"
   },
