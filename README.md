@@ -7,7 +7,6 @@ __um banco financeiro. Nele é possível criar uma conta e fazer transações__
 __que assemelham ao pix.__
 
 ## Back-end
-
 - [x] - Iniciar back-end
 - [x] - Instalar depedências
 - [x] - Configurar eslint com o padrão da airbnb
@@ -30,7 +29,6 @@ __que assemelham ao pix.__
 
 
 ## Front-end
-
 - [x] - Iniciar front-end
 - [x] - Instalar depedências
 - [x] - Configurar eslint com o padrão da airbnb
@@ -48,7 +46,7 @@ __que assemelham ao pix.__
 - [x] - Implementar componente statement
 - [x] - Implementar conexão axios
 - [x] - Implementar context Auth
-- [] - Integrar com o back-end
-- [] - Dockerizar toda aplicação
+- [ ] - Integrar com o back-end
+- [ ] - Dockerizar toda aplicação
 
 
