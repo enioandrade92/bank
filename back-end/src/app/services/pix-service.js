@@ -3,6 +3,28 @@ const pixModel = require('../models/pix-model');
 const pixUtil = require('../utils/pix-util');
 const errorUtil = require('../utils/error-util');
 
+async function checkPixStatus(pixId) {
+  const pixTransaction = await pixModel.findById(pixId);
+
+  if (!pixTransaction) errorUtil('Invalid key', 'bad_request');
+
+  if (pixTransaction.status === 'close') {
+    errorUtil('This pix key is paid', 'bad_request');
+  }
+
+  return pixTransaction;
+}
+
+async function checkCustomers(requestingId, payingId) {
+  const requestingUser = await userModel.findById(requestingId);
+  const payingUser = await userModel.findById(payingId);
+  if (!requestingUser || !payingUser) {
+    errorUtil('Customers not found, generate a new key', 'bad_request');
+  }
+
+  return { requestingUser, payingUser };
+}
+
 module.exports = {
   async request(user, value) {
     const currentUser = await userModel.findByEmail(user.email);
@@ -11,25 +33,22 @@ module.exports = {
       value,
       status: 'open',
     };
-    const register = await pixModel.create(requestData);
+    const requestPix = await pixModel.create(requestData);
 
-    const key = pixUtil.encodeKey(currentUser.id || '', value, register.id);
+    const key = pixUtil.encodeKey(currentUser.id || '', value, requestPix.id);
 
     return key;
   },
 
   async pay(user, key) {
     const keyDecoded = pixUtil.decodeKey(key);
-    if (keyDecoded.id === user.id) {
+    if (keyDecoded.userId === user.id) {
       errorUtil('Its not doing transactions for yourself', 'bad_request');
     }
 
-    const requestingUser = await userModel.findById(keyDecoded.id);
-    const payingUser = await userModel.findById(user.id);
+    const pixTransaction = await checkPixStatus(keyDecoded.pixId);
 
-    if (!requestingUser || !payingUser) {
-      errorUtil('Customers not found, generate a new key', 'bad_request');
-    }
+    const { requestingUser, payingUser } = await checkCustomers(keyDecoded.userId, user.id);
 
     if (payingUser.wallet < +keyDecoded.value) {
       errorUtil('Insufficient funds', 'bad_request');
@@ -40,10 +59,6 @@ module.exports = {
 
     await userModel.updateWallet(requestingUser.id, requestingUser.wallet);
     await userModel.updateWallet(payingUser.id, payingUser.wallet);
-
-    const pixTransaction = await pixModel.findById(keyDecoded.registerId);
-
-    if (!pixTransaction) errorUtil('Invalid key', 'bad_request');
 
     pixTransaction.status = 'close';
     pixTransaction.payingUser = payingUser.id;
