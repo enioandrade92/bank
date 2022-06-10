@@ -3,7 +3,7 @@ CREATE TABLE "user" (
     "id" SERIAL NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "firtName" TEXT NOT NULL,
+    "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
     "accountNumber" INTEGER NOT NULL,
     "accountDigit" INTEGER NOT NULL,
