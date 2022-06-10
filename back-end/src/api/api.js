@@ -2,8 +2,7 @@ require('express-async-errors');
 const express = require('express');
 const cors = require('cors');
 const errorHandler = require('./middleware/error-handler');
-const signinRouter = require('./router/sign-in');
-const signupRouter = require('./router/sign-up');
+const userRouter = require('./router/user');
 const pixRouter = require('./router/pix');
 
 const api = express();
@@ -11,8 +10,7 @@ const api = express();
 api.use(express.json());
 api.use(cors());
 
-api.use('/signin', signinRouter);
-api.use('/signup', signupRouter);
+api.use('/user', userRouter);
 api.use('/pix', pixRouter);
 
 api.use(errorHandler);
