@@ -17,18 +17,6 @@ export const BodyContainer = styled.main`
   display: flex;
   justify-content: space-between;
 
-  > div {
-    flex:1;
-
-    & > div {
-      margin-bottom: 20px;
-    };
-
-    &:nth-child(2){
-      display: flex;
-      justify-content: flex-end;
-    };
-  };
 `
 
 export const InlineTitle = styled.div`
