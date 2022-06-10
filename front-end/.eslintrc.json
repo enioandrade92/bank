@@ -26,6 +26,7 @@
         "react/jsx-props-no-spreading": 0,
         "jsx-a11y/anchor-is-valid": 0,
         "no-alert": 0,
-        "react/jsx-no-constructed-context-values": 0
+        "react/jsx-no-constructed-context-values": 0,
+        "no-console": 0
     }
 }
