@@ -12,4 +12,13 @@ module.exports = {
     const createdUser = await userService.signUp(req.body);
     res.status(201).json(createdUser);
   },
+
+  async me(req, res) {
+    const { user } = req;
+    const updatedDataUser = await userService.findById(user.id);
+    delete updatedDataUser.createAt;
+    delete updatedDataUser.password;
+
+    return res.status(200).json(updatedDataUser);
+  },
 };
