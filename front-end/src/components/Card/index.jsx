@@ -8,14 +8,14 @@ export default function Card({
   noShadow=false,
 }) {
   return(
-    <CardContainer width={width || '100%'} heigth={heigth} noShadown={noShadow}>
+    <CardContainer width={width} heigth={heigth} noShadown={noShadow}>
       {children}
     </CardContainer>
   )
 }
 
 Card.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
   width: PropTypes.string,
   heigth: PropTypes.string,
   noShadow: PropTypes.bool,
