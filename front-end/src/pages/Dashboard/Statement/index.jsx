@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types';
-import { format }from 'date-fns';
-import { FiDollarSign } from 'react-icons/fi'
+import { useState, useEffect } from 'react';
+import { FiDollarSign } from 'react-icons/fi';
 import {
   StatementContainer,
   StatementItemContainer,
   StatementItemInfo,
   StatementItemImage,
 } from './styles';
+import { transactions } from '../../../services/resources/pix'
 
-
-function StatementItem({user, value, type, updateAt}) {
+function StatementItemPay({requestingUser, value, updateAt}) {
   return (
     <StatementItemContainer>
-      <StatementItemImage type={type}>
+      <StatementItemImage type='pay'>
         <FiDollarSign size='30px'/>
       </StatementItemImage>
       <StatementItemInfo>
@@ -23,51 +23,80 @@ function StatementItem({user, value, type, updateAt}) {
           })}
         </p>
         <p>
-          {type === 'pay' ? 'Pay to: ' : 'Received from: '}
-          <strong>{user.firstName} {user.lastName}</strong>
+          Pay to: <strong>{requestingUser}</strong>
         </p>
         <p>
-          {format(updateAt, "dd/MM/yyyy 'às' HH:mm")}
+          {updateAt.slice(0, 10)}
         </p> 
-      </StatementItemInfo>
+      </StatementItemInfo>  
     </StatementItemContainer>
   )
 }
-export default function Statement() {
-  const statements = [
-    {
-      user:{
-        firstName: 'Enio',
-        lastName: 'Andrade',
-      },
-      value: 250.00,
-      type: 'pay',
-      updateAt: new Date(),
-    },
-    {
-      user:{
-        firstName: 'Priscilla',
-        lastName: 'Quites',
-      },
-      value: 560.00,
-      type: 'received',
-      updateAt: new Date(),
-    }
-  ];
-  
+
+function StatementItemRequest({payingUser, value, updateAt}) {
   return (
-    <StatementContainer>
-      {statements.map(item => <StatementItem {...item} />)}
+    <StatementItemContainer>
+      <StatementItemImage>
+        <FiDollarSign size='30px'/>
+      </StatementItemImage>
+      <StatementItemInfo>
+        <p>
+          {value.toLocaleString('pt-br', {
+            style: 'currency',
+            currency: 'BRL',
+          })}
+        </p>
+        <p>
+          Received from: <strong>{payingUser}</strong>
+        </p>
+        <p>
+          {updateAt.slice(0, 10)}
+        </p> 
+      </StatementItemInfo>  
+    </StatementItemContainer>
+  )
+}
+export default function Statement({type}) {
+  const [statementsPay, setStatementsPay] = useState([]);
+  const [statementsRequest, setStatementsRequest] = useState([]);
+
+  const getAllTransactions = async () => {
+    const {paying, requesting} = await transactions();
+    console.log(paying, requesting);
+    setStatementsPay(paying);
+    setStatementsRequest(requesting);
+  };
+
+  useEffect(() => {
+    getAllTransactions();
+  }, [])
+  
+  return ( 
+    type === 'pay' ? (
+      <StatementContainer>
+        {statementsPay && statementsPay.map(item => <StatementItemPay {...item} />)}
     </StatementContainer>
+    ) : (
+      <StatementContainer>
+        {statementsRequest && statementsRequest.map(item => <StatementItemRequest {...item} />)}
+    </StatementContainer>
+    )
   )
 }
 
-StatementItem.propTypes = {
-  user: PropTypes.shape({
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
-  }).isRequired,
-  value: PropTypes.number.isRequired,
+Statement.propTypes = {
   type: PropTypes.string.isRequired,
+}
+
+StatementItemPay.propTypes = {
+  requestingUser: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
   updateAt: PropTypes.string.isRequired,
 }
+
+StatementItemRequest.propTypes = {
+  payingUser: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+  updateAt: PropTypes.string.isRequired,
+}
+
