@@ -1,43 +1,43 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import AuthContext from './AuthContext';
-import { userSignIn, userSignUp } from '../services/resources/user'
+import { userSignIn, userSignUp, userMe } from '../services/resources/user';
 
 export default function AuthProvider({children}) {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState({});
 
-  useEffect(() => {
-    setUser({
-      id: 0,
-      email: '',
-      firtName: '',
-      lastName: '',
-      accountNumber: 0,
-      accountDigit: 0,
-      wallet: 0,
-      token: '',
-    });
-  }, []);
+  // enio@gmail.com
+  // --adm2@21!!--
+
+  async function getCurrentUser() {
+    const userData = await userMe();
+    if (userData.message) return userData.message;
+    setUser(userData);    
+    return userData;
+  }
 
   async function authSingIn(dataLogin) {
-    const { data } = await userSignIn(dataLogin);
-    console.log(data);
-    if (data.message) return data.message;
-    localStorage.setItem('@Bank:Token', data.token)
-    setUser(...data);
-    return data;
+    const token  = await userSignIn(dataLogin);
+    if (token.message) return token.message;
+    
+    localStorage.setItem('@Bank:Token', token.token)
+    const userData = await getCurrentUser();
+    return userData;
   }
 
   async function authSingUp(dataCreate) {
-    const { data } = await userSignUp(dataCreate);
-    if (data.message) return data.message;
-    localStorage.setItem('@Bank:Token', data.token)
-    setUser(...data);
-    return data;
+    const token  = await userSignUp(dataCreate);
+    
+    if (token.message) return token.message;
+
+    localStorage.setItem('@Bank:Token', token.token)
+    
+    const userData = await getCurrentUser();
+    return userData;
   }
 
   return (
-    <AuthContext.Provider value={{user, setUser, authSingIn, authSingUp}}>
+    <AuthContext.Provider value={{user, setUser, authSingIn, authSingUp, getCurrentUser}}>
       {children}
     </AuthContext.Provider>
   );
