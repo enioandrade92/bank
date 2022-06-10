@@ -4,11 +4,12 @@
   "description": "",
   "main": "./src/api/server.js",
   "scripts": {
-    "dev": "nodemon .",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon .",
+    "dockerup": "cd docker && docker-compose down -v && docker-compose up -d",
+    "dockerdown": "cd docker && docker-compose down -v",
     "prisma": "npx prisma migrate reset -f && node prisma/seed.js",
-    "dockerup": "cd docker && docker-compose down -v && docker-compose up",
-    "dockerdown": "cd docker && docker-compose down -v"
+    "start": "npm run dockerup && sleep 2 && npm run prisma && npm run dev"
   },
   "keywords": [],
   "author": "",
