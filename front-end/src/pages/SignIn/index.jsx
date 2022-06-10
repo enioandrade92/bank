@@ -19,9 +19,9 @@ export default function SignIn() {
   const handleToSignIn = async () => {
     const response = await authSingIn({email, password});
     if (response.id) {
-      navigate('/dashboard');
+      return navigate('/dashboard');
     }
-    alert(response.message);
+    return alert(response);
   }
 
   return(
