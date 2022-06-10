@@ -1,8 +1,9 @@
 import styled, { css } from 'styled-components';
 
 export const CardContainer = styled.div`
+  margin-top: 10px;
   width: ${(props) => props.width};
-  heigth: ${(props) => props.width};
+  heigth: ${(props) => props.heigth};
   background: ${({theme}) => theme.colors.background};
 
   ${(props) => !props.noShadown && css`
