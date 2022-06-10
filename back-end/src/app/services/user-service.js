@@ -16,9 +16,7 @@ module.exports = {
     delete user.updateAt;
     const token = jwt.generateToken(user);
 
-    delete user.password;
-
-    return { ...user, token };
+    return { token };
   },
 
   async signUp(user) {
@@ -29,8 +27,13 @@ module.exports = {
     delete createdUser.createAt;
     delete createdUser.updateAt;
     const token = jwt.generateToken(createdUser);
-    delete createdUser.password;
 
-    return { ...createdUser, token };
+    return { token };
+  },
+
+  async findById(id) {
+    const user = await userModel.findById(id);
+
+    return user;
   },
 };
