@@ -20,7 +20,7 @@ module.exports = {
   },
 
   async findById(id) {
-    const pix = await prismaClient.user.findUnique({
+    const pix = await prismaClient.pix.findUnique({
       where: { id },
     });
 
